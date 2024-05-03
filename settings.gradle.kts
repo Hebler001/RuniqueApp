@@ -19,6 +19,7 @@ dependencyResolutionManagement {
     }
 }
 
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 rootProject.name = "RuniqueApp"
 include(":app")
 include(":auth:data")
