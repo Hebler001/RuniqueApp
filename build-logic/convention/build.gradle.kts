@@ -9,3 +9,12 @@ dependencies {
     compileOnly(libs.android.tools.common)
     compileOnly(libs.kotlin.gradlePlugin)
 }
+
+gradlePlugin {
+    plugins {
+        register("androidApplication") {
+            id = "runiqueapp.android.application"
+            implementationClass = "AndroidApplicationConventionPlugin"
+        }
+    }
+}
