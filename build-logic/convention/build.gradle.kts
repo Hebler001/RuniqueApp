@@ -20,5 +20,9 @@ gradlePlugin {
             id = "runiqueapp.android.application.compose"
             implementationClass = "AndroidApplicationComposeConventionPlugin"
         }
+        register("androidLibrary") {
+            id = "runiqueapp.android.library"
+            implementationClass = "AndroidLibraryConventionPlugin"
+        }
     }
 }
