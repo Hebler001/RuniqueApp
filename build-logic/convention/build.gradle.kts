@@ -8,6 +8,8 @@ dependencies {
     compileOnly(libs.android.gradlePlugin)
     compileOnly(libs.android.tools.common)
     compileOnly(libs.kotlin.gradlePlugin)
+    compileOnly(libs.ksp.gradlePlugin)
+    compileOnly(libs.room.gradlePlugin)
 }
 
 gradlePlugin {
@@ -31,6 +33,10 @@ gradlePlugin {
         register("androidFeatureUi") {
             id = "runiqueapp.android.feature.ui"
             implementationClass = "AndroidFeatureUiConventionPlugin"
+        }
+        register("androidRoom") {
+            id = "runiqueapp.android.room"
+            implementationClass = "AndroidRoomConventionPlugin"
         }
     }
 }
