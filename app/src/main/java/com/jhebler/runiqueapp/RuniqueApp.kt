@@ -3,6 +3,7 @@ package com.jhebler.runiqueapp
 import android.app.Application
 import com.jhebler.auth.data.di.authDataModule
 import com.jhebler.auth.presentation.di.authViewModelModule
+import com.jhebler.core.data.di.coreDataModule
 import com.jhebler.runiqueapp.di.appModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -23,7 +24,8 @@ class RuniqueApp: Application() {
             modules(
                 authDataModule,
                 authViewModelModule,
-                appModule
+                appModule,
+                coreDataModule
             )
         }
     }
