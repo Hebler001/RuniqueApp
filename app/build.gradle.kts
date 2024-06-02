@@ -49,6 +49,9 @@ dependencies {
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
 
+    // Splash screen
+    implementation(libs.androidx.core.splashscreen)
+
     // Timber
     implementation(libs.timber)
 
