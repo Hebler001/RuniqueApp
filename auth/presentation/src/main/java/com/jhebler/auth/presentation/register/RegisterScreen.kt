@@ -41,7 +41,6 @@ import com.jhebler.core.presentation.designsystem.EmailIcon
 import com.jhebler.core.presentation.designsystem.Poppins
 import com.jhebler.core.presentation.designsystem.RuniqueAppTheme
 import com.jhebler.core.presentation.designsystem.RuniqueDarkRed
-import com.jhebler.core.presentation.designsystem.RuniqueGray
 import com.jhebler.core.presentation.designsystem.RuniqueGreen
 import com.jhebler.core.presentation.designsystem.components.GradientBackground
 import com.jhebler.core.presentation.designsystem.components.RuniqueActionButton
@@ -82,7 +81,13 @@ fun RegisterScreenRoot(
 
     RegisterScreen(
         state = viewModel.state,
-        onAction = viewModel::onAction
+        onAction = { action ->
+            when(action) {
+                is RegisterAction.OnLoginClick -> onSignInClick()
+                else -> Unit
+            }
+            viewModel.onAction(action)
+        }
     )
 }
 
@@ -94,8 +99,8 @@ private fun RegisterScreen(
     GradientBackground {
         Column(
             modifier = Modifier
-                .verticalScroll(rememberScrollState())
                 .fillMaxSize()
+                .verticalScroll(rememberScrollState())
                 .padding(horizontal = 16.dp)
                 .padding(vertical = 32.dp)
                 .padding(top = 16.dp)
@@ -108,7 +113,7 @@ private fun RegisterScreen(
                 withStyle(
                     style = SpanStyle(
                         fontFamily = Poppins,
-                        color = RuniqueGray
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 ) {
                     append(stringResource(id = R.string.already_have_an_account) + " ")
