@@ -33,6 +33,7 @@ import com.jhebler.core.presentation.designsystem.components.RuniqueScaffold
 import com.jhebler.core.presentation.designsystem.components.RuniqueToolbar
 import com.jhebler.run.presentation.R
 import com.jhebler.run.presentation.active_run.components.RunDataCard
+import com.jhebler.run.presentation.active_run.maps.TrackerMap
 import com.jhebler.run.presentation.util.hasLocationPermission
 import com.jhebler.run.presentation.util.hasNotificationPermission
 import com.jhebler.run.presentation.util.shouldShowLocationPermissionRationale
@@ -143,6 +144,14 @@ private fun ActiveRunScreen(
                 .fillMaxSize()
                 .background(MaterialTheme.colorScheme.surface)
         ) {
+            TrackerMap(
+                isRunFinished = state.isRunFinished,
+                currentLocation = state.currentLocation,
+                locations = state.runData.locations,
+                onSnapshot = {},
+                modifier = Modifier
+                    .fillMaxSize()
+            )
             RunDataCard(
                 elapsedTime = state.elapsedTime,
                 runData = state.runData,

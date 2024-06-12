@@ -1,5 +1,6 @@
 import com.android.build.api.dsl.ApplicationExtension
 import com.jhebler.convention.ExtensionType
+import com.jhebler.convention.apiKeyProperties
 import com.jhebler.convention.configureBuildTypes
 import com.jhebler.convention.configureKotlinAndroid
 import com.jhebler.convention.libs
@@ -23,6 +24,7 @@ class AndroidApplicationConventionPlugin: Plugin<Project> {
 
                     versionCode = libs.findVersion("projectVersionCode").get().toString().toInt()
                     versionName = libs.findVersion("projectVersionName").get().toString()
+                    manifestPlaceholders["MAPS_API_KEY"] = apiKeyProperties.getProperty("MAPS_API_KEY")
                 }
 
                 configureKotlinAndroid(
