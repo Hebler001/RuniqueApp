@@ -35,6 +35,7 @@ import com.jhebler.core.presentation.designsystem.components.RuniqueToolbar
 import com.jhebler.run.presentation.R
 import com.jhebler.run.presentation.active_run.components.RunDataCard
 import com.jhebler.run.presentation.active_run.maps.TrackerMap
+import com.jhebler.run.presentation.active_run.service.ActiveRunService
 import com.jhebler.run.presentation.util.hasLocationPermission
 import com.jhebler.run.presentation.util.hasNotificationPermission
 import com.jhebler.run.presentation.util.shouldShowLocationPermissionRationale
@@ -44,10 +45,12 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun ActiveRunScreenRoot(
     onBackClick: () -> Unit,
+    onServiceToggle: (isServiceRunning: Boolean) -> Unit,
     viewModel: ActiveRunViewModel = koinViewModel()
 ) {
     ActiveRunScreen(
         state = viewModel.state,
+        onServiceToggle = onServiceToggle,
         onAction = { action ->
             when(action) {
                 is ActiveRunAction.OnBackClick -> onBackClick()
@@ -61,6 +64,7 @@ fun ActiveRunScreenRoot(
 @Composable
 private fun ActiveRunScreen(
     state: ActiveRunState,
+    onServiceToggle: (isServiceRunning: Boolean) -> Unit,
     onAction: (ActiveRunAction) -> Unit
 ) {
     val context = LocalContext.current
@@ -111,6 +115,18 @@ private fun ActiveRunScreen(
 
         if(!showLocationRationale && !showNotificationRationale) {
             permissionLauncher.requestRuniquePermissions(context)
+        }
+    }
+
+    LaunchedEffect(key1 = state.isRunFinished) {
+        if(state.isRunFinished) {
+            onServiceToggle(false)
+        }
+    }
+
+    LaunchedEffect(key1 = state.shouldTrack) {
+        if(context.hasLocationPermission() && state.shouldTrack && !ActiveRunService.isServiceActive) {
+            onServiceToggle(true)
         }
     }
 
@@ -252,6 +268,7 @@ private fun ActiveRunScreenRootScreenPreview() {
     RuniqueAppTheme {
         ActiveRunScreen(
             state = ActiveRunState(),
+            onServiceToggle = {},
             onAction = {}
         )
     }
