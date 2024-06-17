@@ -4,6 +4,7 @@ import android.app.Application
 import com.jhebler.auth.data.di.authDataModule
 import com.jhebler.auth.presentation.di.authViewModelModule
 import com.jhebler.core.data.di.coreDataModule
+import com.jhebler.core.database.di.databaseModule
 import com.jhebler.run.location.di.locationModule
 import com.jhebler.run.presentation.di.runPresentationModule
 import com.jhebler.runiqueapp.di.appModule
@@ -33,7 +34,8 @@ class RuniqueApp: Application() {
                 appModule,
                 coreDataModule,
                 runPresentationModule,
-                locationModule
+                locationModule,
+                databaseModule
             )
         }
     }
