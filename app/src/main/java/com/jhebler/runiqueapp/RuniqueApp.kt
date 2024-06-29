@@ -6,6 +6,7 @@ import com.jhebler.auth.presentation.di.authViewModelModule
 import com.jhebler.core.data.di.coreDataModule
 import com.jhebler.core.database.di.databaseModule
 import com.jhebler.run.location.di.locationModule
+import com.jhebler.run.network.di.networkModule
 import com.jhebler.run.presentation.di.runPresentationModule
 import com.jhebler.runiqueapp.di.appModule
 import kotlinx.coroutines.CoroutineScope
@@ -35,7 +36,8 @@ class RuniqueApp: Application() {
                 coreDataModule,
                 runPresentationModule,
                 locationModule,
-                databaseModule
+                databaseModule,
+                networkModule
             )
         }
     }

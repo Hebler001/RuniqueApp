@@ -105,7 +105,10 @@ private fun NavGraphBuilder.runGraph(navController: NavHostController) {
         ) {
             val context = LocalContext.current
             ActiveRunScreenRoot(
-                onBackClick = {
+                onBack = {
+                    navController.navigateUp()
+                },
+                onFinish = {
                     navController.navigateUp()
                 },
                 onServiceToggle = { shouldServiceRun ->
