@@ -6,6 +6,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.jhebler.core.domain.location.Location
+import com.jhebler.core.domain.run.Run
+import com.jhebler.run.domain.LocationDataCalculator
 import com.jhebler.run.domain.RunningTracker
 import com.jhebler.run.presentation.active_run.service.ActiveRunService
 import kotlinx.coroutines.channels.Channel
@@ -16,7 +19,10 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 import timber.log.Timber
+import java.time.ZoneId
+import java.time.ZonedDateTime
 
 class ActiveRunViewModel(
     private val runningTracker: RunningTracker
@@ -85,7 +91,10 @@ class ActiveRunViewModel(
     fun onAction(action: ActiveRunAction) {
         when(action) {
             ActiveRunAction.OnFinishRunClick -> {
-
+                state = state.copy(
+                    isRunFinished = true,
+                    isSavingRun = true
+                )
             }
             ActiveRunAction.OnResumeRunClick -> {
                 state = state.copy(shouldTrack = true)
@@ -116,6 +125,36 @@ class ActiveRunViewModel(
                     showLocationRationale = false
                 )
             }
+            is ActiveRunAction.OnRunProcessed -> {
+               finishRun(action.mapPictureBytes)
+            }
+        }
+    }
+
+    private fun finishRun(mapPictureBytes: ByteArray) {
+        val locations = state.runData.locations
+        if(locations.isEmpty() || locations.first().size <= 1) {
+            state = state.copy(isSavingRun = false)
+            return
+        }
+
+        viewModelScope.launch {
+            val run = Run(
+                id = null,
+                duration = state.elapsedTime,
+                dateTimeUtc = ZonedDateTime.now()
+                    .withZoneSameInstant(ZoneId.of("UTC")),
+                distanceFeet = state.runData.distanceFeet,
+                location = state.currentLocation ?: Location(0.0, 0.0),
+                maxSpeedMilesPerHr = LocationDataCalculator.getMaxSpeedMilesPerHr(locations),
+                totalElevationFeet = LocationDataCalculator.getTotalElevationFeet(locations),
+                mapPictureUrl = null
+            )
+
+            // Save run in repository
+
+            runningTracker.finishRun()
+            state = state.copy(isSavingRun = false)
         }
     }
 
