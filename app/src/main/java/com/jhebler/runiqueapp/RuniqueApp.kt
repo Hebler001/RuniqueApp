@@ -1,6 +1,8 @@
 package com.jhebler.runiqueapp
 
 import android.app.Application
+import android.content.Context
+import com.google.android.play.core.splitcompat.SplitCompat
 import com.jhebler.auth.data.di.authDataModule
 import com.jhebler.auth.presentation.di.authViewModelModule
 import com.jhebler.core.data.di.coreDataModule
@@ -44,5 +46,10 @@ class RuniqueApp: Application() {
                 runDataModule
             )
         }
+    }
+
+    override fun attachBaseContext(base: Context?) {
+        super.attachBaseContext(base)
+        SplitCompat.install(this)
     }
 }
