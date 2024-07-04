@@ -1,12 +1,9 @@
-import com.android.build.api.dsl.ApplicationExtension
 import com.android.build.api.dsl.DynamicFeatureExtension
 import com.jhebler.convention.ExtensionType
 import com.jhebler.convention.addUiLayerDependencies
-import com.jhebler.convention.apiKeyProperties
 import com.jhebler.convention.configureAndroidCompose
 import com.jhebler.convention.configureBuildTypes
 import com.jhebler.convention.configureKotlinAndroid
-import com.jhebler.convention.libs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
