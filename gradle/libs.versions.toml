@@ -42,6 +42,7 @@ projectMinSdkVersion = "25"
 projectTargetSdkVersion = "34"
 projectCompileSdkVersion = "34"
 projectVersionCode = "1"
+annotation = "1.7.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -99,6 +100,7 @@ android-tools-common = { group = "com.android.tools", name = "common", version.r
 kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
 ksp-gradlePlugin = { group = "com.google.devtools.ksp", name = "com.google.devtools.ksp.gradle.plugin", version.ref = "ksp" }
 room-gradlePlugin = { group = "androidx.room", name = "room-gradle-plugin", version.ref = "room" }
+androidx-annotation = { group = "androidx.annotation", name = "annotation", version.ref = "annotation" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
@@ -115,8 +117,10 @@ runiqueapp-android-library = { id = "runiqueapp.android.library", version = "uns
 runiqueapp-android-library-compose = { id = "runiqueapp.android.library.compose", version = "unspecified" }
 runiqueapp-android-feature-ui = { id = "runiqueapp.android.feature.ui", version = "unspecified" }
 runiqueapp-android-room = { id = "runiqueapp.android.room", version = "unspecified" }
+runiqueapp-android-dynamic-feature = { id = "runiqueapp.android.dynamic.feature", version = "unspecified" }
 runiqueapp-jvm-library = { id = "runiqueapp.jvm.library", version = "unspecified" }
 runiqueapp-jvm-ktor = { id = "runiqueapp.jvm.ktor", version = "unspecified" }
+androidDynamicFeature = { id = "com.android.dynamic-feature", version.ref = "agp" }
 
 [bundles]
 compose = [
